@@ -1,7 +1,7 @@
 # cmpe202-project
 
 ## Waffle.io: https://waffle.io/markcablayan/cmpe202-project
-## Weekly Report 1: https://docs.google.com/document/d/1VSx8DKvt0zLyr-Xc2JF_UTKp6kMEPlOVKG0zz8-90Ag/edit?usp=sharing
+## Week 1 Submission: https://docs.google.com/document/d/13QvM75zYxaG4ebBQ-C6L51mHeKiNidU1-gkI11jhyhE/edit?ts=57dede3c
 ## CFD Google Sheet: https://docs.google.com/spreadsheets/d/1le7NBUkGp8k-OSip2jHShXa3KLM1Hzv0Wq1a_P_sF2Y/edit?usp=sharing
 
 Folder Structure Conventions:
