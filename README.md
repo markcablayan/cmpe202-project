@@ -1,8 +1,10 @@
-# cmpe202-project
+### CMPE202 - Project
+#The Orange Game
 
-## Waffle.io: https://waffle.io/markcablayan/cmpe202-project
-## Week 1 Submission: https://docs.google.com/document/d/13QvM75zYxaG4ebBQ-C6L51mHeKiNidU1-gkI11jhyhE/edit?ts=57dede3c
-## CFD Google Sheet: https://docs.google.com/spreadsheets/d/1le7NBUkGp8k-OSip2jHShXa3KLM1Hzv0Wq1a_P_sF2Y/edit?usp=sharing
+### Waffle.io: https://waffle.io/markcablayan/cmpe202-project
+### Week 1 Submission: https://docs.google.com/document/d/13QvM75zYxaG4ebBQ-C6L51mHeKiNidU1-gkI11jhyhE/edit?ts=57dede3c
+### Week 2 Submission: https://docs.google.com/document/d/1dITZTAQTJvXXokQRJCUbGnnAD1F5ssM39_Th0bTQk60/edit
+### CFD Google Sheet: https://docs.google.com/spreadsheets/d/1le7NBUkGp8k-OSip2jHShXa3KLM1Hzv0Wq1a_P_sF2Y/edit?usp=sharing
 
 Folder Structure Conventions:
 
@@ -13,4 +15,25 @@ Folder Structure Conventions:
 - tools: all tools, utilities, 3rd party libraries saved here
 - reporys: where we save our weekly submission reports.
 - design: where we save our design models for this project including mockup UI design
+
+--------------------
+Template for this page (need to be filled in later)
+
+Pre-requisities
+<What things you need to install the software and how to install them>
+
+Installing
+<A step by step series of examples that tell you have to get a development env running>
+
+Running the tests
+<Explain how to run the automated tests for this system>
+
+- Break down into end to end tests
+<Explain what these tests test and why>
+-And coding style tests
+<Explain what these tests test and why>
+
+
+Deployment
+<Add additional notes about how to deploy this on a live system>
 
