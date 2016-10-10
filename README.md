@@ -22,20 +22,21 @@ Folder Structure Conventions:
 Template for this page (need to be filled in later)
 
 Pre-requisities
-<What things you need to install the software and how to install them>
++ What things you need to install the software and how to install them
 
 Installing
-<A step by step series of examples that tell you have to get a development env running>
++ A step by step series of examples that tell you have to get a development env running
 
 Running the tests
-<Explain how to run the automated tests for this system>
++ Explain how to run the automated tests for this system
 
 - Break down into end to end tests
-<Explain what these tests test and why>
--And coding style tests
-<Explain what these tests test and why>
+	+ Explain what these tests test and why
+
+- And coding style tests
+	+ Explain what these tests test and why
 
 
 Deployment
-<Add additional notes about how to deploy this on a live system>
++ Add additional notes about how to deploy this on a live system
 
