@@ -12,6 +12,8 @@
     "express": "~4.13.4",
     "hbs": "~4.0.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "guid": "0.0.12",
+    "node-uuid": "^1.4.7"
   }
 }
