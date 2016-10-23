@@ -132,7 +132,7 @@ public class Room extends Actor
 
 	public int setPlayerTurn(){
 		for(Player player: players.values()){
-			if(player.getObject(0) == null) || player.getObject(1) == null){
+			if(player.getObject(0) == null || player.getObject(1) == null){
 				return player.getID();
 			}
 		}
