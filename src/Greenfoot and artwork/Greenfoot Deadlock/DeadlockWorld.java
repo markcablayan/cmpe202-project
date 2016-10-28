@@ -10,5 +10,7 @@ public class DeadlockWorld extends World
 	
 	private void prepare()
 	{
+	    Lobby lobby = new Lobby();
+	    addObject(lobby, getHeight()/2, getWidth()/2);
 	}
 }
