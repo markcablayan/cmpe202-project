@@ -13,13 +13,13 @@ public class Lobby extends Actor
         rooms = new HashMap<Integer, Room>();
     }
     
-    public boolean createRoom(int players, int orientation){
+    public boolean createRoom(int players, Orientation orientation){
         Room room = new Room(rooms.size(), players, orientation);
         return true;
     }
     
     public boolean deleteRoom(int id){
-        if rooms.containsKey(id){
+        if(rooms.containsKey(id)){
             rooms.remove(id);
             return true;
         }
