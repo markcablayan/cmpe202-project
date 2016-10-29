@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.*;
 
 public class Room extends Actor
 {
@@ -7,7 +8,7 @@ public class Room extends Actor
 	Orientation orientation;
 	int id;
 	int playerTurn;
-	int numofMove;
+	int numOfMove;
 
 	public Room(int id, int size, Orientation orientation){
 		this.id = id;
@@ -19,7 +20,7 @@ public class Room extends Actor
 	}
 
 	public boolean startGame(){
-		if(checkNumberOfPlayers() == size()){
+		if(checkNumberOfPlayers() == getSize()){
 			assignObjects();
 			distributeObjects();
 			setPlayerTurn();
@@ -30,7 +31,7 @@ public class Room extends Actor
 
 	public void restartGame(){
 		playerTurn = -1;
-		numofMove = 0;
+		numOfMove = 0;
 	}
 
 	public boolean endGame(){
@@ -54,15 +55,16 @@ public class Room extends Actor
 		Collections.shuffle(Arrays.asList(left_hands));
 		Collections.shuffle(Arrays.asList(right_hands));
 		//iterate through the values in the hashmap
-		{int i = 0;
-			for(Player player : players.values()){
-				if(i >= left_hands.length || i >= right_hands.length){
-					break;
-				}
-				player.initPlayerObjects(left_hands[i], right_hands[i]);
-				i++;
+		int i = 0;
+		for(Player player : players.values()){
+			if(i >= left_hands.length || i >= right_hands.length){
+				break;
 			}
+			player.initPlayerObjects(left_hands[i], right_hands[i]);
+			i++;
 		}
+		
+		return i;
 	}
 
 	private void assignObjects(){
@@ -115,9 +117,9 @@ public class Room extends Actor
 
 	public boolean checkWinCondition(){
 		for(Player player: players.values()){
-			ObjectType assigned_object = player.getAssignedObject();
-			ObjectType lh_object = player.getObject(0);
-			ObjectType rh_object = player.getObject(1);
+			ObjectHold assigned_object = player.getAssignedObject();
+			ObjectHold lh_object = player.getObject(0);
+			ObjectHold rh_object = player.getObject(1);
 			//if a player does not have the assigned object in their hands, return false
 			if(!(lh_object == assigned_object || lh_object == null) && (rh_object == assigned_object || rh_object == null)){
 				return false;
@@ -133,7 +135,7 @@ public class Room extends Actor
 	public int setPlayerTurn(){
 		for(Player player: players.values()){
 			if(player.getObject(0) == null || player.getObject(1) == null){
-				return player.getID();
+				return player.getId();
 			}
 		}
 		return -1;

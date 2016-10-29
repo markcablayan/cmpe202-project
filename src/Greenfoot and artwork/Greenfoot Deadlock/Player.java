@@ -10,7 +10,7 @@ public class Player extends Actor
 {
     int id;
     int handExchange;
-    ObjectType assigned_object;
+    ObjectHold assigned_object;
     PlayerObject[] playerObjects;
     
     public void act() 
@@ -28,10 +28,12 @@ public class Player extends Actor
     
     public int getNumPlayerObjectInHand()
     {
+        return 0;
     }
     
     public Player getNeighborWithEmptyHand()
     {
+        return null;
     }
 
     public void sendMessage(String message)
@@ -43,8 +45,9 @@ public class Player extends Actor
         return id;
     }
     
-    public PlayerObject getObject(int hand)
+    public ObjectHold getObject(int hand)
     {
+        return null;
     }
     
     public void exchangeObject(int hand, Player player)
@@ -59,8 +62,9 @@ public class Player extends Actor
     {
     }
     
-    public ObjectType getAssignedObject()
+    public ObjectHold getAssignedObject()
     {
+        return null;
     }
     
     
