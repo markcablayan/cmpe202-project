@@ -43,3 +43,6 @@ Running the tests
 Deployment
 + Add additional notes about how to deploy this on a live system
 
+# Current Class Diagram: (this will be modified)
+![class diagram latest](https://cloud.githubusercontent.com/assets/12701069/19839078/39244b28-9e99-11e6-98c3-c7d3c2b31df3.png)
+
