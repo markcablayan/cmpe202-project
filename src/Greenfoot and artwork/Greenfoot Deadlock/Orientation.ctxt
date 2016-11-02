@@ -1,4 +1,7 @@
 #BlueJ class context
 comment0.target=Orientation
-comment0.text=\n\ Write\ a\ description\ of\ class\ Orientation\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-numComments=1
+comment1.params=players
+comment1.target=void\ addPlayersToMatrix(java.util.ArrayList)
+comment2.params=player1\ player2
+comment2.target=boolean\ checkingNeighborhood(Player,\ Player)
+numComments=3
