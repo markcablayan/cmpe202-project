@@ -15,6 +15,8 @@ public class Lobby extends Actor
     
     public boolean createRoom(int players, Orientation orientation){
         Room room = new Room(rooms.size(), players, orientation);
+        rooms.put(rooms.size(), room);
+        room.addToWorld(getWorld());
         return true;
     }
     
