@@ -1,4 +1,4 @@
-package DeadLockModel;
+package deadlockmodel;
 
 
 public class PlayerModel
@@ -8,6 +8,7 @@ public class PlayerModel
     private ObjectHoldModel rightHandObj;
     private GameController gameController;
     private ObjectHoldModel[] gumballs = new ObjectHoldModel[2];
+    
     /*
     public Player(GameController room, ObjectHoldType leftHandObjectType, ObjectHoldType rightHandObjectType)
     {

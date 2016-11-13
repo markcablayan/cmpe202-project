@@ -1,4 +1,4 @@
-package DeadLockModel;
+package deadlockmodel;
 
 public class BlueGumballModel extends ObjectHoldModel {
 	public String toString(){

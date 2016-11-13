@@ -1,13 +1,31 @@
-package DeadLockModel;
+package deadlockmodel;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+
+
 public class GameController {
 	private Orientation orientation;
 	int numberOfPlayers = 5;
 	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
+	private boolean gameStart = false;
+	private static GameController controller ;
+	
+	private GameController(){};
+	
+	public static GameController getInstance(){
+		if (controller == null) {
+			controller = new GameController() ;
+			controller.setOrientation(new StraightLineConfig());
+			return controller ;
+		}
+		else {
+			return controller ;
+		}
+	}
+	
 	
 	public void setOrientation(Orientation orientation)
 	{
@@ -20,43 +38,49 @@ public class GameController {
 		players.add(player);
 	}
 	
-	
+	public ArrayList<PlayerModel> getList()
+	{
+		return players;
+	}
 	private void prepareConfig()
 	{
-		System.out.println("Please choose the config:");
-		Scanner scan = new Scanner(System.in);
-		String s = scan.next();
-		if(s.equals("L"))
-			orientation = new StraightLineConfig(); 
+		orientation = new StraightLineConfig(); 
 	}
 
 	public ArrayList<PlayerModel> setUpGame()
 	{
-		prepareConfig();
+		//prepareConfig();
 		//we can setup more players. Currently only accept when we have 5 players
-		ObjectHoldType[] objectHoldType = {ObjectHoldType.RED,ObjectHoldType.GREEN,ObjectHoldType.BLUE
-				,ObjectHoldType.PURPLE,ObjectHoldType.YELLOW};
-
-		int position = 2;
-		for(int i = 0 ; i < numberOfPlayers; i++)
-		{
-			PlayerModel player = players.get(i);
-			Random rand = new Random();
-
-			int  n1 = rand.nextInt(objectHoldType.length);
-			int  n2 = rand.nextInt(objectHoldType.length);
-			
-			
-			if(i == position){
-				player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);		
+		if(!gameStart){
+			ObjectHoldType[] objectHoldType = {ObjectHoldType.RED,ObjectHoldType.GREEN,ObjectHoldType.BLUE
+					,ObjectHoldType.PURPLE,ObjectHoldType.YELLOW};
+	
+			int position = 2;
+			for(int i = 0 ; i < numberOfPlayers; i++)
+			{
+				PlayerModel player = players.get(i);
+				Random rand = new Random();
+	
+				int  n1 = rand.nextInt(objectHoldType.length);
+				int  n2 = rand.nextInt(objectHoldType.length);
+				
+				
+				if(i == position){
+					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);		
+				}
+				else{
+					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);	
+					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n2]), HandType.RIGHT);		
+				}
 			}
-			else{
-				player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);	
-				player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n2]), HandType.RIGHT);		
-			}
+			orientation.addPlayers(players);
+			gameStart = true;
+			return players;
 		}
-		orientation.addPlayers(players);
-		return players;
+		else
+		{
+			return null;
+		}
 	}
 
 	public Orientation getOrientation()

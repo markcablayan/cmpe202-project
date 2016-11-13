@@ -1,4 +1,4 @@
-package DeadLockModel;
+package deadlockmodel;
 /**
  * Write a description of class GumballType here.
  * 

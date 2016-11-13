@@ -1,4 +1,4 @@
-package DeadLockModel;
+package deadlockmodel;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package DeadLockModel;
+package deadlockmodel;
 
 public enum HandType  
 {

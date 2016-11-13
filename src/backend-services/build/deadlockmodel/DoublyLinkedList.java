@@ -1,4 +1,4 @@
-package DeadLockModel;
+package deadlockmodel;
 public class DoublyLinkedList<Alien>{
     private int n;        // number of elements on list
     private Node pre;     // sentinel before first item
