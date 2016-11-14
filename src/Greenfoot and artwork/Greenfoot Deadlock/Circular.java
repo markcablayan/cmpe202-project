@@ -5,15 +5,15 @@ import java.util.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Linear implements Orientation 
+public class Circular implements Orientation 
 {
     // instance variables - replace the example below with your own
     private int x;
-    private String name = "Linear";
+    private String name = "Circular";
     /**
      * Constructor for objects of class Linear
      */
-    public Linear()
+    public Circular()
     {
     }
 

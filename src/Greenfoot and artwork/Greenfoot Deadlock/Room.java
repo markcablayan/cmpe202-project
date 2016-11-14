@@ -2,7 +2,7 @@ import greenfoot.*;
 import java.util.*;
 import java.awt.Point;
 
-public class Room extends Actor
+public class Room extends World
 {
     HashMap<Integer, Player> players;
     int size;
@@ -11,20 +11,31 @@ public class Room extends Actor
     int playerTurn;
     int numOfMove;
     Button button;
+    Button goBackToLobbyButton;
+    Lobby lobby;
+    
 
-    public Room(int id, int size, Orientation orientation){
+    public Room(int id, int size, Orientation orientation, Lobby lobby){
+        super(800,600,1);
         this.id = id;
         this.size = size;
         this.orientation = orientation;
+        this.lobby = lobby;
         playerTurn = -1;
         numOfMove = 0;
         players = new HashMap<Integer, Player>();
+        prepare();
         
+    }
+    
+    public void prepare(){
+        goBackToLobbyButton = new Button("Go Back To Lobby", new Point(200,25)); 
+        addObject(goBackToLobbyButton, getWidth()*4/5, getHeight()/4);
     }
 
     public void addToWorld(World world){
-        button = new Button("Room: " + id + " Size: " + size + " Orientation: ", new Point(200,25));
-        world.addObject(button, 100, 12+ 25*id);
+        button = new Button("Room: " + id + " Size: " + size + " Orientation: " + orientation.toString(), new Point(300,25));
+        world.addObject(button, 150, 12+ 25*id);
     }
     
     public boolean startGame(){
@@ -152,18 +163,8 @@ public class Room extends Actor
     @Override
     public void act()
     {
-        /*
-       List<Button> button_list = getWorld().getObjects(Button.class);
-       for(Button b : button_list){
-           if( b == button){
-               return;
-            }
-       }
-       */
-      if(button.wasClicked()){
-          RoomWorld rw = new RoomWorld();
-          Greenfoot.setWorld(rw);
-      }
-
+        if(goBackToLobbyButton.wasClicked()){
+            Greenfoot.setWorld(lobby);
+        }
     }
 }

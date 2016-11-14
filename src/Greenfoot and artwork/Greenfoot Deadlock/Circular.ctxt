@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=Linear
+comment0.target=Circular
 comment0.text=\n\ Write\ a\ description\ of\ class\ Linear\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
-comment1.target=Linear()
+comment1.target=Circular()
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Linear\n
 comment2.params=players
 comment2.target=void\ addPlayersToMatrix(java.util.ArrayList)
