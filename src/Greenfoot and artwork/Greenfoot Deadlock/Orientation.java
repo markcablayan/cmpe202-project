@@ -8,6 +8,8 @@ import greenfoot.*;
 import java.util.*;
 public interface Orientation  
 {
-    void addPlayersToMatrix(ArrayList<Player> players);
-    boolean checkingNeighborhood(Player player1, Player player2);
+    void addPlayers(HashMap<Integer, Player> players);
+    boolean checkingNeighborHood(Player player1, Player player2);
+    int getPositionXForPlayerAt(int i);
+    int getPositionYForPlayerAt(int i);
 }

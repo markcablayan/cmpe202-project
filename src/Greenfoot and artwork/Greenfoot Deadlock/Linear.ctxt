@@ -1,14 +1,15 @@
 #BlueJ class context
 comment0.target=Linear
-comment0.text=\n\ Write\ a\ description\ of\ class\ Linear\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=
 comment1.target=Linear()
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Linear\n
 comment2.params=players
-comment2.target=void\ addPlayersToMatrix(java.util.ArrayList)
-comment2.text=\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\n\ \n\ @param\ \ y\ \ \ a\ sample\ parameter\ for\ a\ method\n\ @return\ \ \ \ \ the\ sum\ of\ x\ and\ y\ \n
+comment2.target=void\ addPlayers(java.util.HashMap)
 comment3.params=player1\ player2
-comment3.target=boolean\ checkingNeighborhood(Player,\ Player)
-comment4.params=
-comment4.target=java.lang.String\ toString()
-numComments=5
+comment3.target=boolean\ checkingNeighborHood(Player,\ Player)
+comment4.params=i
+comment4.target=int\ getPositionXForPlayerAt(int)
+comment5.params=i
+comment5.target=int\ getPositionYForPlayerAt(int)
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

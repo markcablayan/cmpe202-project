@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Gumball
+comment1.params=
+comment1.target=Gumball()
+comment2.params=owner
+comment2.target=void\ setOwner(greenfoot.Actor)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=java.lang.String\ toString()
+numComments=5

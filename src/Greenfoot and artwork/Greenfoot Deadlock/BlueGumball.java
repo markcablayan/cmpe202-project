@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class BlueGumball extends ObjectHold
+public class BlueGumball extends Gumball
 {
     public String toString()
     {

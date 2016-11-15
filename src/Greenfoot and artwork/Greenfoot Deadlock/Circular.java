@@ -34,4 +34,9 @@ public class Circular implements Orientation
         // put your code here
         return name;
     }
+    
+    public void addPlayers(HashMap<Integer, Player> players){}
+    public boolean checkingNeighborHood(Player player1, Player player2){return false;}
+    public int getPositionXForPlayerAt(int i){return -1;}
+    public int getPositionYForPlayerAt(int i){return -1;}
 }

@@ -1,14 +1,8 @@
-/**
- * Write a description of class ObjectHoldFactory here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class ObjectHoldFactory  
+public class GumballFactory  
 {
-    public static ObjectHold generateObjectHold(ObjectHoldType objectType)
+    public static Gumball generateGumball(GumballType GumballType)
     {
-        switch(objectType){
+        switch(GumballType){
             case RED: return new RedGumball();
             case BLUE: return new BlueGumball();
             case GREEN: return new GreenGumball();

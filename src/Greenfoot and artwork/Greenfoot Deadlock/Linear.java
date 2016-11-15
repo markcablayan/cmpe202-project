@@ -1,37 +1,59 @@
-import java.util.*;
 /**
- * Write a description of class Linear here.
+ * Write a description of class LineLayout here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Linear implements Orientation 
+import greenfoot.*; 
+import java.util.*;
+
+public class Linear implements Orientation
 {
     // instance variables - replace the example below with your own
-    private int x;
+    private DoublyLinkedList<Player> list ;
     private String name = "Linear";
-    /**
-     * Constructor for objects of class Linear
-     */
+    
     public Linear()
     {
+        list = new DoublyLinkedList<Player>();
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
     
-    public void addPlayersToMatrix(ArrayList<Player> players){
+    public void addPlayers(HashMap<Integer, Player> players){
+        for(Player player : players.values())
+        {
+            list.add(player);
+        }
     }
-    public boolean checkingNeighborhood(Player player1, Player player2){
+    
+    public boolean checkingNeighborHood(Player player1, Player player2)
+    {
+        DoublyLinkedList.Node head = list.getHead().getNext();
+        while(head !=null)
+        {
+            Player player = (Player)head.getItem();
+            if(player1 == player){
+                //check to see if palyer is obe of my neighbors
+                Player pre =(Player) head.getPrev().getItem();
+                Player pos =(Player) head.getNext().getItem();
+                if(player2 == pre) return true;
+                if(player2 == pos) return true;
+            }
+            head = head.getNext();
+        }
         return false;
     }
-    public String toString()
-    {
-        // put your code here
-        return name;
+   
+   public int getPositionXForPlayerAt(int i)
+   {
+       return 100 + 160 * i;
+   }
+    
+   public int getPositionYForPlayerAt(int i)
+   {
+       return 300;
+   }
+   
+   public String toString(){
+       return name;
     }
 }

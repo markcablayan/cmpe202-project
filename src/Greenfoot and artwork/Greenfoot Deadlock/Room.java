@@ -5,11 +5,13 @@ import java.awt.Point;
 public class Room extends World
 {
     HashMap<Integer, Player> players;
+    HashMap<Integer, Message> messages;
     int size;
     Orientation orientation;
     int id;
     int playerTurn;
-    int numOfMove;
+    int numOfMoves;
+    Message numOfMoveMsg;
     Button button;
     Button goBackToLobbyButton;
     Lobby lobby;
@@ -22,8 +24,9 @@ public class Room extends World
         this.orientation = orientation;
         this.lobby = lobby;
         playerTurn = -1;
-        numOfMove = 0;
+        numOfMoves = 0;
         players = new HashMap<Integer, Player>();
+        messages = new HashMap<Integer, Message>();
         prepare();
         
     }
@@ -31,8 +34,51 @@ public class Room extends World
     public void prepare(){
         goBackToLobbyButton = new Button("Go Back To Lobby", new Point(200,25)); 
         addObject(goBackToLobbyButton, getWidth()*4/5, getHeight()/4);
+        numOfMoveMsg = new Message();
+        numOfMoveMsg.setMsg("Number of moves: " + numOfMoves);
+        addObject(numOfMoveMsg, getWidth()*1/5, getHeight()/4);
+        
+        signUp();
+        
+        for(int i = 0 ; i < players.size() ; i ++){
+            addObject(players.get(i), orientation.getPositionXForPlayerAt(i), 
+                                                orientation.getPositionYForPlayerAt(i));
+            addObject(messages.get(i), orientation.getPositionXForPlayerAt(i), 
+                                                orientation.getPositionYForPlayerAt(i) + 75);
+        }
+    }
+    
+    public void signUp()
+    {
+        GumballType[] gumballTypes = {GumballType.RED,GumballType.GREEN,GumballType.BLUE
+                                        ,GumballType.PURPLE,GumballType.YELLOW};
+        
+        int position = 2;
+        for(int i = 0 ; i < 5; i++)
+        {
+            Player player = null;
+            int playerID = players.size();
+            if(i == position)
+                player = new Player(playerID, gumballTypes[i],null);
+            else
+                player = new Player(playerID, gumballTypes[i],gumballTypes[i]); 
+            Message message = new Message();
+            message.setMsg(player.toString());
+            messages.put(players.size(), message);
+            players.put(players.size(), player);
+        }
+        orientation.addPlayers(players);
+    }
+    
+    public void incrementNumOfMoves(){
+        numOfMoves++;
     }
 
+    public boolean checkingNeighborhood(Player player1, Player player2)
+    {
+        return orientation.checkingNeighborHood(player1, player2);
+    }
+    
     public void addToWorld(World world){
         button = new Button("Room: " + id + " Size: " + size + " Orientation: " + orientation.toString(), new Point(300,25));
         world.addObject(button, 150, 12+ 25*id);
@@ -50,7 +96,7 @@ public class Room extends World
 
     public void restartGame(){
         playerTurn = -1;
-        numOfMove = 0;
+        numOfMoves = 0;
     }
 
     public boolean endGame(){
@@ -136,9 +182,9 @@ public class Room extends World
 
     public boolean checkWinCondition(){
         for(Player player: players.values()){
-            ObjectHold assigned_object = player.getAssignedObject();
-            ObjectHold lh_object = player.getObject(0   );
-            ObjectHold rh_object = player.getObject(1);
+            Gumball assigned_object = player.getAssignedObject();
+            Gumball lh_object = player.getObject(0   );
+            Gumball rh_object = player.getObject(1);
             //if a player does not have the assigned object in their hands, return false
             if(!(lh_object == assigned_object || lh_object == null) && (rh_object == assigned_object || rh_object == null)){
                 return false;
@@ -163,6 +209,7 @@ public class Room extends World
     @Override
     public void act()
     {
+        numOfMoveMsg.setMsg("Number of moves: " + numOfMoves);
         if(goBackToLobbyButton.wasClicked()){
             Greenfoot.setWorld(lobby);
         }

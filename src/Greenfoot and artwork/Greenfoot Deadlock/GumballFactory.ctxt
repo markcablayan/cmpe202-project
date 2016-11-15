@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=GumballFactory
+comment1.params=GumballType
+comment1.target=Gumball\ generateGumball(GumballType)
+numComments=2
