@@ -1,18 +1,17 @@
 package api;
 
+mport java.util.ArrayList;
+
+import org.json.* ;
+import org.restlet.representation.* ;
+import org.restlet.ext.json.* ;
+import org.restlet.resource.* ;
+
 import deadlockmodel.GameController;
 import deadlockmodel.HandType;
+import deadlockmodel.ObjectHoldModel;
 import deadlockmodel.PlayerModel;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
-import org.restlet.resource.Get;
-import org.restlet.resource.Post;
-import org.restlet.resource.ServerResource;
-
-import java.util.ArrayList;
+import deadlockmodel.StraightLineConfig;
 
 public class DeadLockResource extends ServerResource {
 
@@ -35,28 +34,38 @@ public class DeadLockResource extends ServerResource {
 		
 	}
 	
+	@Put
+	public Representation put(JsonRepresentation jsonReq)
+	{
+		if(controller.isGameStarted()){
+			JSONObject json = jsonReq.getJsonObject();
+			HandType hand = null;
+			if( json.getString("handType").equals("left")){
+				hand = HandType.LEFT;
+			}else{
+				hand = HandType.RIGHT;
+			}
+			int passingPlayer = json.getInt("passingPlayer");
+			int passedPlayer = json.getInt("passedPlayer");
+			HandType isPassed = controller.getList().get(passingPlayer).passGumballToNeighboor(hand,controller.getList().get(passedPlayer) );
+	        if(isPassed!=null)
+	        {
+	        	return new JsonRepresentation ( new JSONObject().put("isPassed", isPassed.getType())) ;
+	        }else{
+	        	return new JsonRepresentation ( new JSONObject().put("isPassed", "")) ;
+	        }
+		}else{
+			return new StringRepresentation ( "the game has not started yet" ) ;
+		}
+	}
+	
 	@Get
     public Representation get() {
 		if(controller.getList().size() == 5){
 			controller.setUpGame();
-			JSONObject json = new JSONObject() ;
-			ArrayList<PlayerModel> list = controller.getList();
-	    	JSONArray listOfPlayers = new JSONArray();
-	    	for(PlayerModel player:list)
-	    	{
-	    		String leftHand = (player.getGumball(HandType.LEFT)==null) ? "null" : player.getGumball(HandType.LEFT).getClass().getSimpleName();
-	    		String rightHand =(player.getGumball(HandType.RIGHT)==null) ? "null" : player.getGumball(HandType.RIGHT).getClass().getSimpleName();
-	    		JSONObject jsonPlayer = new JSONObject();
-	    		jsonPlayer.put("lefthand", leftHand);
-	    		jsonPlayer.put("righthand", rightHand);
-	    		listOfPlayers.put(jsonPlayer);
-	    	}
-	    	json.put("players",listOfPlayers);
-	        json.put("orientation", controller.getOrientation().getClass().getSimpleName());
-	        return new JsonRepresentation ( json ) ;
+			return new JsonRepresentation ( controller.getJson() ) ;
 		}else{
 			return new StringRepresentation ( "there is not enough user.Please wait" ) ;
 		}
     }
 }
-

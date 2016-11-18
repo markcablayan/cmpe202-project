@@ -3,7 +3,8 @@ package deadlockmodel;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class GameController {
@@ -12,9 +13,9 @@ public class GameController {
 	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
 	private boolean gameStart = false;
 	private static GameController controller ;
-	
+
 	private GameController(){};
-	
+
 	public static GameController getInstance(){
 		if (controller == null) {
 			controller = new GameController() ;
@@ -25,26 +26,26 @@ public class GameController {
 			return controller ;
 		}
 	}
-	
-	
+
+
 	public void setOrientation(Orientation orientation)
 	{
 		this.orientation = orientation;
 	}
-	
-	
+
+
 	public void addPlayer(PlayerModel player)
 	{
 		players.add(player);
 	}
-	
+
 	public ArrayList<PlayerModel> getList()
 	{
 		return players;
 	}
 	private void prepareConfig()
 	{
-		orientation = new StraightLineConfig(); 
+		orientation = new StraightLineConfig();
 	}
 
 	public ArrayList<PlayerModel> setUpGame()
@@ -54,23 +55,23 @@ public class GameController {
 		if(!gameStart){
 			ObjectHoldType[] objectHoldType = {ObjectHoldType.RED,ObjectHoldType.GREEN,ObjectHoldType.BLUE
 					,ObjectHoldType.PURPLE,ObjectHoldType.YELLOW};
-	
+
 			int position = 2;
 			for(int i = 0 ; i < numberOfPlayers; i++)
 			{
 				PlayerModel player = players.get(i);
 				Random rand = new Random();
-	
+
 				int  n1 = rand.nextInt(objectHoldType.length);
 				int  n2 = rand.nextInt(objectHoldType.length);
-				
-				
+
+
 				if(i == position){
-					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);		
+					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);
 				}
 				else{
-					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);	
-					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n2]), HandType.RIGHT);		
+					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n1]), HandType.LEFT);
+					player.putObjectIntoHand(ObjectHoldModelFactory.generateGumball(objectHoldType[n2]), HandType.RIGHT);
 				}
 			}
 			orientation.addPlayers(players);
@@ -87,32 +88,7 @@ public class GameController {
 	{
 		return orientation;
 	}
-	/*
-	public void startGame()
-	{
-		this.setUpGame();
-		this.displayRoom();
-		int i = 0;
-		while(!checkWinCondition()){
-			i = i % 5;
-			HandType hand = null;
-			PlayerModel player = players.get(i);
-			System.out.println("Please choose to pass gumball to player at:");
-			Scanner scan = new Scanner(System.in);
-			int j = scan.nextInt();
-			System.out.println("Please choose a object in which hand you want to pass to neighbor");
-			String s = scan.next();
-			if(s.equals("L"))
-				hand = HandType.LEFT;
-			else
-				hand = HandType.RIGHT;
-			PlayerModel neighbor = players.get(j);
-			player.passGumballToNeighboor(hand, neighbor);
-			this.displayRoom();
-			i++;
-		}
-	}
-	*/
+
 	public boolean checkWinCondition()
 	{
 		for(PlayerModel player: players){
@@ -125,7 +101,7 @@ public class GameController {
 		}
 		return true;
 	}
-	
+
 	public void displayRoom()
 	{
 		System.out.println("\n");
@@ -134,5 +110,29 @@ public class GameController {
 			player.display();
 		}
 		System.out.println("\n");
+	}
+
+	public JSONObject getJson()
+	{
+		JSONObject json = new JSONObject() ;
+		ArrayList<PlayerModel> list = controller.getList();
+		JSONArray listOfPlayers = new JSONArray();
+		for(PlayerModel player:list)
+		{
+			String leftHand = (player.getGumball(HandType.LEFT)==null) ? "null" : player.getGumball(HandType.LEFT).getClass().getSimpleName();
+			String rightHand =(player.getGumball(HandType.RIGHT)==null) ? "null" : player.getGumball(HandType.RIGHT).getClass().getSimpleName();
+			JSONObject jsonPlayer = new JSONObject();
+			jsonPlayer.put("lefthand", leftHand);
+			jsonPlayer.put("righthand", rightHand);
+			listOfPlayers.put(jsonPlayer);
+		}
+		json.put("players",listOfPlayers);
+		json.put("orientation", controller.getOrientation().getClass().getSimpleName());
+		return json;
+	}
+
+	public boolean isGameStarted()
+	{
+		return gameStart;
 	}
 }
