@@ -1,7 +1,3 @@
-package api;
-
-mport java.util.ArrayList;
-
 import org.json.* ;
 import org.restlet.representation.* ;
 import org.restlet.ext.json.* ;
@@ -9,9 +5,7 @@ import org.restlet.resource.* ;
 
 import deadlockmodel.GameController;
 import deadlockmodel.HandType;
-import deadlockmodel.ObjectHoldModel;
 import deadlockmodel.PlayerModel;
-import deadlockmodel.StraightLineConfig;
 
 public class DeadLockResource extends ServerResource {
 
@@ -38,7 +32,9 @@ public class DeadLockResource extends ServerResource {
 	public Representation put(JsonRepresentation jsonReq)
 	{
 		if(controller.isGameStarted()){
+			JSONObject respObj = new JSONObject();
 			JSONObject json = jsonReq.getJsonObject();
+			
 			HandType hand = null;
 			if( json.getString("handType").equals("left")){
 				hand = HandType.LEFT;
@@ -47,13 +43,17 @@ public class DeadLockResource extends ServerResource {
 			}
 			int passingPlayer = json.getInt("passingPlayer");
 			int passedPlayer = json.getInt("passedPlayer");
-			HandType isPassed = controller.getList().get(passingPlayer).passGumballToNeighboor(hand,controller.getList().get(passedPlayer) );
-	        if(isPassed!=null)
-	        {
-	        	return new JsonRepresentation ( new JSONObject().put("isPassed", isPassed.getType())) ;
-	        }else{
-	        	return new JsonRepresentation ( new JSONObject().put("isPassed", "")) ;
-	        }
+			controller.getList().get(passingPlayer).passGumballToNeighboor(hand,controller.getList().get(passedPlayer) );
+			if(controller.checkWinCondition()){
+				controller.restartGame();
+				respObj.put("win", "true");
+			}else{
+				respObj.put("win", "false");
+			}
+			respObj.put("players", controller.getJson().toString());
+			
+			return new JsonRepresentation (respObj);
+			
 		}else{
 			return new StringRepresentation ( "the game has not started yet" ) ;
 		}
@@ -69,3 +69,4 @@ public class DeadLockResource extends ServerResource {
 		}
     }
 }
+

@@ -2,7 +2,7 @@ package deadlockmodel;
 
 import java.util.ArrayList;
 
-public class StraightLineConfig implements Orientation {
+public class StraightLineConfig implements OrientationModel {
 	private DoublyLinkedList<PlayerModel> list ;
 
 	public StraightLineConfig()

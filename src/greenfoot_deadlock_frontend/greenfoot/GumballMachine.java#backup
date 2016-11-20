@@ -1,0 +1,131 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
+/**
+ * Write a description of class GumballMachine here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class GumballMachine extends Actor
+{
+    private Message msg;
+    private Coin coinInserted = null;
+    private boolean hasCoinMsgDisplayed = false;
+    private boolean crankTurnedMsgDisplayed = false;
+    private int timeMsg = 0;
+    private int valueSoFarInserted = 0;
+    
+    private ArrayList<Gumball> gumballJar = new ArrayList<Gumball>();
+   
+    public GumballMachine()
+    {
+        GreenfootImage image = getImage() ;
+        image.scale( 350, 400 ) ; 
+        msg = new Message();
+        
+        gumballJar.add(0, new RedGumball() );
+        gumballJar.add(1, new BlueGumball() );
+        gumballJar.add(2, new GreenGumball() );
+        
+    }
+
+    public void act() 
+    {
+        // Add your action code here
+
+        turnOnCrankState();
+        insertCoinState();
+    }
+
+    private void insertCoinState()
+    {
+        if(hasCoinMsgDisplayed){
+            msg.setMsg("has coined");
+            World myWorld = getWorld();
+            myWorld.addObject(msg, getX(), getY());
+            //hasCoined = false;
+            if(timeMsg < 30){
+                timeMsg++;
+            }
+            else{
+                msg.setMsg("");
+                hasCoinMsgDisplayed = false;
+                timeMsg = 0;
+            }
+        }
+    }
+
+    private void turnOnCrankState(){
+        World gW = getWorld();
+        Inspector inspector = (Inspector)gW.getObjects(Inspector.class).get(0);
+        if(Greenfoot.mousePressed(this) && coinInserted != null){
+            
+            crankTurnedMsgDisplayed = true;
+            
+            inspector.inspectCoinInserted(coinInserted);
+            
+            if(isValidCoin(coinInserted)){
+                //eject gumball
+                Random r = new Random();
+               // r.setSeed(10);
+                int index = r.nextInt(3);
+                Gumball gumballReturned = gumballJar.get(index);
+                gW.addObject(gumballReturned, getX(), getY()+300);
+                inspector.doTheWork();
+            }
+            
+            
+        }
+        
+        if(crankTurnedMsgDisplayed){
+            msg.setMsg("crank turned");
+            World myWorld = getWorld();
+            myWorld.addObject(msg, getX(), getY());
+           
+            if(timeMsg < 30){
+                timeMsg++;
+            }
+            else{
+                msg.setMsg("");
+                crankTurnedMsgDisplayed = false;
+                timeMsg = 0;
+                if(!isValidCoin(coinInserted)){
+                    inspector.returnCoin(coinInserted);
+                }
+                coinInserted = null;
+            }
+        }
+    }
+
+    public void insertCoin(Coin coin)
+    {
+        int value = coin.getValue();
+        if(value > 0){
+            valueSoFarInserted += value;
+        }
+        coinInserted = coin;
+        hasCoinMsgDisplayed = true;
+    }
+    
+    public boolean hasCoin(){
+        if(coinInserted != null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    private boolean isValidCoin(Coin coin){
+        if(coin == null){
+            return false;
+        }else{
+            if(coin instanceof FakeQuarter || coin instanceof Penny){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+}

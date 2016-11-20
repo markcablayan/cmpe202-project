@@ -2,7 +2,7 @@ package deadlockmodel;
 
 import java.util.*;
 
-public interface Orientation  
+public interface OrientationModel  
 {
     // instance variables - replace the example below with your own
     void addPlayers(ArrayList<PlayerModel> players);

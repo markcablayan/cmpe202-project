@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Player
+comment0.text=\n\ Write\ a\ description\ of\ class\ Player\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=leftHandObjectType\ rightHandObjectType\ pos
+comment1.target=Player(GumballType,\ GumballType,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=obj
+comment3.target=HandType\ isObjectBelongTo(Gumball)
+comment4.params=hand\ gumball
+comment4.target=void\ assingGumball(HandType,\ Gumball)
+comment5.params=
+comment5.target=int\ myPositionInGameRoom()
+numComments=6

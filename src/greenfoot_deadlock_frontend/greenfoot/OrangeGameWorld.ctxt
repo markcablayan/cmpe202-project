@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=OrangeGameWorld
+comment0.text=\n\ Write\ a\ description\ of\ class\ OrangeGameWorld\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=OrangeGameWorld()
+comment2.params=
+comment2.target=void\ signUp()
+comment3.params=json
+comment3.target=void\ redraw(org.json.JSONObject)
+comment4.params=type
+comment4.target=GumballType\ choose(java.lang.String)
+comment5.params=
+comment5.target=void\ restartGame()
+numComments=6
