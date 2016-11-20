@@ -24,11 +24,11 @@ public class OrangeGameWorld extends World
     public OrangeGameWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-       super(800, 600, 1); 
+       super(1000, 800, 1); 
        orientation = new LineLayout();
        signUp();
        
-       addObject(new Timer(60, true),150,100);
+       addObject(new Timer(60, true),150,400);
         //orientation.drawLayout();
     }
     
@@ -61,7 +61,7 @@ public class OrangeGameWorld extends World
             GumballType rightHand = choose(playerJson.getString("righthand"));
             Player player = new Player(leftHand,rightHand,i); 
             addObject(player, orientation.getPositionXForPlayerAt(i), 
-                                        orientation.getPositionYForPlayerAt(i));
+                                        orientation.getPositionYForPlayerAt(i)+250);
         }
     }
 
