@@ -11,4 +11,6 @@ comment4.params=type
 comment4.target=GumballType\ choose(java.lang.String)
 comment5.params=
 comment5.target=void\ restartGame()
-numComments=6
+comment6.params=
+comment6.target=void\ showChat()
+numComments=7
