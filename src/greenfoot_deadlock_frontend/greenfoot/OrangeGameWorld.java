@@ -86,4 +86,11 @@ public class OrangeGameWorld extends World
         msg.setText("You win!!");
         addObject(msg, 100, 200);
     }
+    
+    public void showChat() {
+        Chat chat = new Chat();
+        chat.setText("Temporary Space Holder For Now, Will add the content from the Service Layer.");
+        addObject(chat, 500, 500);
+        
+    }
 }
