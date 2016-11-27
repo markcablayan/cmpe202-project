@@ -1,5 +1,3 @@
-package api;
-
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
@@ -18,9 +16,10 @@ public class DeadLockServer extends Application {
         Router router = new Router(getContext()) ;
         router.attach("/gumball", DeadLockResource.class);
         router.attach("/gumball/chat", ChatResource.class);
+        router.attach("/config",OrientationModelResource.class);
+        router.attach("/room", RoomResource.class);
         return router;
     }
 
 
 }
-

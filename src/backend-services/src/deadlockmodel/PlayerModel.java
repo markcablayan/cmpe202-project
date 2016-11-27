@@ -4,6 +4,7 @@ package deadlockmodel;
 public class PlayerModel
 {
     // 0 index will be left, 1 index will be right
+	private String username;
     private ObjectHoldModel leftHandObj;
     private ObjectHoldModel rightHandObj;
     private GameController gameController;
@@ -24,23 +25,14 @@ public class PlayerModel
         }
     }
    */
-    public PlayerModel(GameController gameController)
+    public PlayerModel(GameController gameController, String username)
     {
     	this.gameController = gameController;
+    	this.username = username;
     }
     
-    
-   
-    public void draw()
-    {
-        
-    }
-    public boolean isMyNeighbor(PlayerModel player){
-        /*
-    	World mW = getWorld();
-        OrangeGameWorld myWorld = (OrangeGameWorld) mW;
-        return myWorld.checkingNeighborhood(this, player);*/
-    	return true;
+    public String getUsername(){
+    	return username;
     }
     
     //will return 0 if lefthand is available , return 1 if righthand available, retunr -1 if bothhands not avaialble

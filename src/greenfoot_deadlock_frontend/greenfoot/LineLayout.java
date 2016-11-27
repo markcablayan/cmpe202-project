@@ -11,12 +11,12 @@ public class LineLayout implements Orientation
 {
    public int getPositionXForPlayerAt(int i)
    {
-       return 100 + 160 * i;
+       return 200 + 160 * i;
    }
     
    public int getPositionYForPlayerAt(int i)
    {
-       return 300;
+       return 550;
    }
     
 }

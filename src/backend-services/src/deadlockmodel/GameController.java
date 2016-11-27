@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GameController {
+	
 	private OrientationModel orientation;
 	public static final int numberOfPlayers = 5;
-	public static final ObjectHoldType[] objectHoldType = {null,ObjectHoldType.RED,ObjectHoldType.RED,
+	public static final ObjectHoldType[] objectHoldType = {ObjectHoldType.RED,ObjectHoldType.RED,
 			ObjectHoldType.GREEN,ObjectHoldType.GREEN,
-			ObjectHoldType.BLUE,
+			ObjectHoldType.BLUE,null,
 			ObjectHoldType.PURPLE,ObjectHoldType.PURPLE,
 			ObjectHoldType.YELLOW,ObjectHoldType.YELLOW};
 	private ArrayList<PlayerModel> players = new ArrayList<PlayerModel>();
@@ -21,10 +23,14 @@ public class GameController {
 	
 	private GameController(){};
 	
+	public void startTimer()
+	{
+	}
+	
 	public static GameController getInstance(){
 		if (controller == null) {
 			controller = new GameController() ;
-			controller.setOrientation(new StraightLineConfig());
+			controller.setOrientation(new OrientationModel());
 			return controller ;
 		}
 		else {
@@ -49,10 +55,6 @@ public class GameController {
 		return players;
 	}
 	
-	private void prepareConfig()
-	{
-		orientation = new StraightLineConfig(); 
-	}
 
 	static void shuffleArray(ObjectHoldType[] ar)
 	  {
@@ -97,17 +99,44 @@ public class GameController {
 		return orientation;
 	}
 	
-	public boolean checkWinCondition()
+	public boolean removeFromRoom(String username)
 	{
-		for(PlayerModel player: players){
-			ObjectHoldModel leftHand = player.getGumball(HandType.LEFT);
-			ObjectHoldModel rightHand = player.getGumball(HandType.RIGHT);
-			if(leftHand==null || rightHand == null)
-				continue;
-			if(!leftHand.toString().equals(rightHand.toString()))
+		for(PlayerModel player:players)
+		{
+			if(player.getUsername().equalsIgnoreCase(username))
+			{
+				players.remove(player);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkUniqueUsername(String username)
+	{
+		for(PlayerModel player : players)
+		{
+			if(username.equalsIgnoreCase(player.getUsername()))
 				return false;
 		}
 		return true;
+	}
+	
+	public boolean checkWinCondition()
+	{
+		if(gameStart){
+			for(PlayerModel player: players){
+				ObjectHoldModel leftHand = player.getGumball(HandType.LEFT);
+				ObjectHoldModel rightHand = player.getGumball(HandType.RIGHT);
+				if(leftHand==null || rightHand == null)
+					continue;
+				if(!leftHand.toString().equals(rightHand.toString()))
+					return false;
+			}
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public void displayRoom()
@@ -135,7 +164,8 @@ public class GameController {
     		listOfPlayers.put(jsonPlayer);
     	}
     	json.put("players",listOfPlayers);
-        json.put("orientation", controller.getOrientation().getClass().getSimpleName());
+        json.put("orientation", controller.getOrientation().getConfig());
+        json.put("win", String.valueOf(checkWinCondition()));
         return json;
 	}
 	
@@ -148,5 +178,11 @@ public class GameController {
 	{
 		gameStart = false;
 		players = new ArrayList<PlayerModel>();
+		controller.setOrientation(new OrientationModel());
+	}
+	
+	public void changeOrientation(String config)
+	{
+		orientation.changeConfig(config);
 	}
 }

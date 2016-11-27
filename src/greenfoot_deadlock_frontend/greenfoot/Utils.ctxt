@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Utils
+comment1.params=jsonInString
+comment1.target=boolean\ isJSONValid(java.lang.String)
+numComments=2

@@ -51,4 +51,16 @@ public class DoublyLinkedList<Alien>{
     public Node getHead(){
         return pre;
     }
+    
+    public void makeACicular()
+    {
+    	post.prev.next = pre.next;
+    	pre.next.prev = post.prev;
+    }
+    
+    public void makeAStraightLine()
+    {
+    	pre.next.prev = null;
+    	post.prev.next = null;
+    }
 }

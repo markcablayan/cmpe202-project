@@ -4,6 +4,10 @@ import org.json.* ;
 import org.restlet.ext.json.* ;
 import org.restlet.resource.ClientResource;
 import org.restlet.representation.Representation ;
+import javax.swing.Timer;
+import java.awt.event.*;
+import org.restlet.ext.json.* ;
+import org.restlet.data.* ;
 
 /**
  * Write a description of class OrangeGameWorld here.
@@ -11,41 +15,46 @@ import org.restlet.representation.Representation ;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class OrangeGameWorld extends World
+public class OrangeGameWorld extends BackGround
 {
-
-    /**
-     * Constructor for objects of class OrangeGameWorld.
-     * 
-     */
-    private final String service_url = "http://localhost:8080/gumball" ;
+    
     private Orientation orientation;
-
+    GreenfootSound backgroundMusic = new GreenfootSound("../artwork/escape.mp3");
+     
     public OrangeGameWorld()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-       super(1000, 800, 1); 
-       orientation = new LineLayout();
-       signUp();
-       
-       addObject(new Timer(60, true),150,400);
-        //orientation.drawLayout();
+    {
+      timer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+               signUp();
+            }    
+      });
+      timer.start();
+      // backgroundMusic.playLoop();
+      // addObject(new Timer(60, true),150,100);
     }
+    
+    
     
     public void signUp()
     {
-        
-        try {
-                ClientResource helloClientresource = new ClientResource( service_url ); 
-                Representation result = helloClientresource.get() ; 
-                
-                JSONObject json = new JSONObject(result.getText());
-                redraw(json);
-                
-                
-        } catch ( Exception e ) {
-            
-        }
+        try{
+                    ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL +"/gumball" ); 
+                    Representation result = helloClientresource.get() ;
+                    String resp = result.getText();
+                    if(!Utils.isJSONValid(resp)){
+                        restartGame();
+                    }else{
+                        JSONObject respObj = new JSONObject(resp);
+                        String isWin = respObj.getString("win");
+                        if(isWin.equals("true")){
+                            restartGame();
+                        }else{
+                            String config = respObj.getString("orientation");
+                            changeConfigUI(config);
+                        }
+                        redraw(respObj);
+                    }
+               }catch(Exception ex){System.out.println(ex);}
     }
     
     
@@ -61,8 +70,9 @@ public class OrangeGameWorld extends World
             GumballType rightHand = choose(playerJson.getString("righthand"));
             Player player = new Player(leftHand,rightHand,i); 
             addObject(player, orientation.getPositionXForPlayerAt(i), 
-                                        orientation.getPositionYForPlayerAt(i)+250);
+                                        orientation.getPositionYForPlayerAt(i));
         }
+       
     }
 
     private GumballType choose(String type)
@@ -81,16 +91,45 @@ public class OrangeGameWorld extends World
     
     public void restartGame()
     {
+        timer.stop();
         removeObjects(getObjects(Actor.class));
         Message msg = new Message();
         msg.setText("You win!!");
         addObject(msg, 100, 200);
     }
     
-    public void showChat() {
-        Chat chat = new Chat();
-        chat.setText("Temporary Space Holder For Now, Will add the content from the Service Layer.");
-        addObject(chat, 500, 500);
-        
+    public void changeConfigUI(String config){
+        if(config.equals("circular")){
+                orientation = new CircularLayout();
+                setBackground(new GreenfootImage("../artwork/darkspace.png"));
+        }
+        else{
+            orientation = new LineLayout();
+            setBackground(new GreenfootImage("../artwork/escaperoom.png"));
+        }
+    }
+    
+
+    public void act()
+    {
+        if (Greenfoot.isKeyDown ("c"))  {
+            //send a put request to the server to update config
+            ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL+ "/config" ); 
+            JSONObject object = new JSONObject();
+            String config = "";
+            if(orientation instanceof LineLayout){
+                config = "circular";
+            }
+            else if(orientation instanceof CircularLayout){
+                config = "line";        
+            }
+            object.put("config", config);
+            helloClientresource.put(object, MediaType.APPLICATION_JSON);
+            changeConfigUI(config);
+            signUp();
+            try{
+                Thread.sleep(500);
+            }catch(Exception ex){}
+        }
     }
 }

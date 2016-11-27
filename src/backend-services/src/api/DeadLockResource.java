@@ -1,13 +1,8 @@
-package api;
-
 import org.json.* ;
+import deadlockmodel.*;
 import org.restlet.representation.* ;
 import org.restlet.ext.json.* ;
 import org.restlet.resource.* ;
-
-import deadlockmodel.GameController;
-import deadlockmodel.HandType;
-import deadlockmodel.PlayerModel;
 
 public class DeadLockResource extends ServerResource {
 
@@ -15,28 +10,41 @@ public class DeadLockResource extends ServerResource {
 	GameController controller = GameController.getInstance();
 	
 	@Post
-	public Representation post(JsonRepresentation jsonRep) {
-		
-		if(controller.getList().size() < 5 ){
-			JSONObject json = new JSONObject() ;
-			controller.addPlayer(new PlayerModel(controller));
-			json.put("numberPlayers", controller.getList().size());
-			return new JsonRepresentation(json);
-	    }
-	    else
-	    {
-	    	return new StringRepresentation ( "cannot add more user" ) ;
-	    }
-		
+	public synchronized Representation post(JsonRepresentation jsonRep) {
+		//getting json body
+		if(jsonRep != null){
+			JSONObject body = jsonRep.getJsonObject();
+			JSONObject response = new JSONObject();
+			if(body.has("username")){
+				//checking uniqueness of username
+				if(controller.checkUniqueUsername(body.getString("username"))){
+					if(controller.getList().size() < 5 ){
+						controller.addPlayer(new PlayerModel(controller,body.getString("username")));
+						response.put("numberPlayers", controller.getList().size());
+						return new JsonRepresentation(response);
+				    }
+				    else
+				    {
+				    	return new StringRepresentation ( "cannot add more user" ) ;
+				    }
+				}
+				else{
+					return new StringRepresentation ( "somebody has this username in the rooom" ) ;
+				}
+			}else
+			{
+				return new StringRepresentation ( "please provide a username" ) ;
+			}
+		}else{
+			return new StringRepresentation ( "please provide a username" ) ;
+		}
 	}
 	
 	@Put
-	public Representation put(JsonRepresentation jsonReq)
+	public synchronized Representation put(JsonRepresentation jsonReq)
 	{
 		if(controller.isGameStarted()){
-			JSONObject respObj = new JSONObject();
 			JSONObject json = jsonReq.getJsonObject();
-			
 			HandType hand = null;
 			if( json.getString("handType").equals("left")){
 				hand = HandType.LEFT;
@@ -48,13 +56,8 @@ public class DeadLockResource extends ServerResource {
 			controller.getList().get(passingPlayer).passGumballToNeighboor(hand,controller.getList().get(passedPlayer) );
 			if(controller.checkWinCondition()){
 				controller.restartGame();
-				respObj.put("win", "true");
-			}else{
-				respObj.put("win", "false");
 			}
-			respObj.put("players", controller.getJson().toString());
-			
-			return new JsonRepresentation (respObj);
+			return new JsonRepresentation (controller.getJson());
 			
 		}else{
 			return new StringRepresentation ( "the game has not started yet" ) ;
@@ -62,7 +65,8 @@ public class DeadLockResource extends ServerResource {
 	}
 	
 	@Get
-    public Representation get() {
+    public synchronized Representation get() {
+		
 		if(controller.getList().size() == 5){
 			controller.setUpGame();
 			return new JsonRepresentation ( controller.getJson() ) ;

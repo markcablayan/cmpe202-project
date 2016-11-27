@@ -1,0 +1,59 @@
+/**
+ * Write a description of class WaitingRoom here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
+import org.json.* ;
+import org.restlet.ext.json.* ;
+import org.restlet.resource.ClientResource;
+import org.restlet.representation.Representation ;
+import org.restlet.ext.json.* ;
+import org.restlet.data.* ;
+import javax.swing.Timer;
+import java.awt.event.*;
+public class WaitingRoom  extends BackGround
+{
+   
+    String username = "";
+    int numberOfPlayers = 0;
+    Orientation orientation = new LineLayout();
+         
+   public WaitingRoom(String username)
+   {
+       //timer.start();
+       this.username = username;
+     
+       addObject(new WithdrawButton(), 495,272);
+       timer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+               try{
+                removeObjects(getObjects(WaitingPerson.class));
+                ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL+"/room" ); 
+                Representation result = helloClientresource.get() ;
+                String respString = result.getText();
+                if(Utils.isJSONValid(respString)){
+                     JSONObject resp = new JSONObject(respString);
+                     numberOfPlayers = resp.getInt("numberPlayers");
+                    if(numberOfPlayers < 5){
+                     for(int i=0;i< numberOfPlayers;i++)
+                     {
+                         addObject(new WaitingPerson(), orientation.getPositionXForPlayerAt(i), orientation.getPositionYForPlayerAt(i));
+                     }
+                     }else{
+                         timer.stop();
+                         Greenfoot.setWorld(new OrangeGameWorld());
+                     }
+                }
+               }catch(Exception ex){System.out.println(ex);}
+            }    
+     });
+   }
+   
+   public String getUsername()
+   {
+       return username;
+    }
+}

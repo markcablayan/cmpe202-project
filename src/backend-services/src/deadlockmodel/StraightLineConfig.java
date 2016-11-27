@@ -1,22 +1,8 @@
 package deadlockmodel;
 
-import java.util.ArrayList;
 
-public class StraightLineConfig implements OrientationModel {
-	private DoublyLinkedList<PlayerModel> list ;
-
-	public StraightLineConfig()
-	{
-		list = new DoublyLinkedList<PlayerModel>();
-	}
-
-	public void addPlayers(ArrayList<PlayerModel> players){
-		for(PlayerModel player : players)
-		{
-			list.add(player);
-		}
-	}
-
+public class StraightLineConfig extends OrientationModel {
+	
 	public boolean checkingNeighborHood(PlayerModel player1, PlayerModel player2)
 	{
 		if(player1 == player2 || player1 == null || player2 == null)
@@ -30,7 +16,8 @@ public class StraightLineConfig implements OrientationModel {
 				PlayerModel pre =(PlayerModel) head.getPrev().getItem();
 				PlayerModel pos =(PlayerModel) head.getNext().getItem();
 				if(player2 == pre) return true;
-				if(player2 == pos) return true;
+				else if(player2 == pos) return true;
+				else return false;
 			}
 			head = head.getNext();
 		}

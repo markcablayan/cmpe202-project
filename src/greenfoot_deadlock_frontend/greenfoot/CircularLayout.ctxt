@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=CircularLayout
+comment1.params=i
+comment1.target=int\ getPositionXForPlayerAt(int)
+comment2.params=i
+comment2.target=int\ getPositionYForPlayerAt(int)
+numComments=3

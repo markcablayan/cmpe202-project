@@ -23,6 +23,7 @@ public class Message extends Actor
         if(Greenfoot.mousePressed(this)) {          
             World world = getWorld();
             world.removeObject( this ) ;
+            Greenfoot.setWorld(new Starter());
         }
     }    
 }
