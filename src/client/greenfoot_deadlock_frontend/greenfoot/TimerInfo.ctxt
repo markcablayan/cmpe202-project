@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=TimerInfo
+comment0.text=\n\ Write\ a\ description\ of\ class\ TimerInfo\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=duration\ started
+comment1.target=TimerInfo(int,\ boolean)
+comment2.params=evt
+comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ updateImage()
+comment5.params=
+comment5.target=void\ startTimer()
+comment6.params=
+comment6.target=void\ stopTimer()
+numComments=7
