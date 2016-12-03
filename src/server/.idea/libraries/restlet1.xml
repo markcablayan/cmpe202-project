@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="restlet1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/clients/processing/code/restlet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

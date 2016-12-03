@@ -21,6 +21,7 @@ public class OrangeGameWorld extends BackGround
     private Orientation orientation;
     GreenfootSound backgroundMusic = new GreenfootSound("../artwork/escape.mp3");
     TimerInfo counterClock;
+    public ChatWindow chatWindow = new ChatWindow();
     public OrangeGameWorld()
     {
       timer.addActionListener(new ActionListener() {
@@ -134,6 +135,16 @@ public class OrangeGameWorld extends BackGround
             try{
                 Thread.sleep(500);
             }catch(Exception ex){}
+        }
+        if (Greenfoot.isKeyDown("h")) {
+            addObject(chatWindow.getMessageObject(), 900, 100);
+            addObject(chatWindow,900, 170);
+            chatWindow.setIsDisplayed(true);
+        }
+        if (Greenfoot.isKeyDown("r")) {
+            removeObject(chatWindow);
+            removeObject(chatWindow.getChatMessage());
+            chatWindow.setIsDisplayed(false);
         }
     }
 }

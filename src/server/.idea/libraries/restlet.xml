@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="restlet">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/clients/greenfoot/libraries/restlet.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

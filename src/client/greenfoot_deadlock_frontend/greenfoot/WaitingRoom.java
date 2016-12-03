@@ -20,6 +20,7 @@ public class WaitingRoom  extends BackGround
     String username = "";
     int numberOfPlayers = 0;
     Orientation orientation = new LineLayout();
+    public ChatWindow chatWindow = new ChatWindow();
          
    public WaitingRoom(String username)
    {
@@ -56,4 +57,19 @@ public class WaitingRoom  extends BackGround
    {
        return username;
     }
+    
+   public void act() {
+        if (Greenfoot.isKeyDown("h")) {
+            addObject(chatWindow.getMessageObject(), 900, 100);
+            addObject(chatWindow,900, 170);
+            chatWindow.setIsDisplayed(true);
+        }
+        if (Greenfoot.isKeyDown("r")) {
+            removeObject(chatWindow);
+            removeObject(chatWindow.getChatMessage());
+            chatWindow.setIsDisplayed(false);
+        }
+    }
+    
+    
 }
