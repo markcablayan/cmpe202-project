@@ -16,6 +16,7 @@ public class DeadLockServer extends Application {
     public Restlet createInboundRoot() {
         Router router = new Router(getContext()) ;
         router.attach("/gumball", DeadLockResource.class);
+        router.attach("/gumball/chat", ChatResource.class);
         router.attach("/config",OrientationModelResource.class);
         router.attach("/room", RoomResource.class);
         return router;
