@@ -15,8 +15,7 @@ public class BackGround extends World
      * 
      */
     
-//    public static final String SERVICE_URL = "http://169.44.10.31:8080";
-    public static final String SERVICE_URL = "http://localhost:8080";
+    public static final String SERVICE_URL = "http://169.44.10.31:8080";
     private static final int TIME_WAIT = 1000;
     public Timer timer = new Timer(TIME_WAIT, null);
     
