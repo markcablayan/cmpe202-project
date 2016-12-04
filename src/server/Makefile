@@ -18,7 +18,7 @@ compile:
 	dist/restlet-json.jar:\
 	dist/restlet-jackson.jar:\
 	dist/jackson-core-2.8.3.jar:\
-	dist/jackson-annotations-2.8.3.jar \
+	dist/jackson-annotations-2.8.3.jar:dist/jackson-databind-2.8.3.jar \
 	-d build \
 	src/com/deadlock/controller/*.java \
 	src/com/deadlock/objectholdmodel/*.java \
@@ -36,7 +36,7 @@ docker-clean:
 	docker rmi restapi
 
 docker-run:
-	docker run --name restapi -td restapi
+	docker run --name restapi -p 8080:8080 -d restapi
 	docker ps
 
 docker-run-host:
