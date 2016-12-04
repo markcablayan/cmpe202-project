@@ -32,7 +32,8 @@ public class WaitingRoom  extends BackGround
             public void actionPerformed(ActionEvent evt) {
                try{
                 removeObjects(getObjects(WaitingPerson.class));
-                ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL+"/room" ); 
+                ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL+"/room" );
+                ClientResource chatRestClient = new ClientResource( BackGround.SERVICE_URL + "/gumball/chat" ); 
                 Representation result = helloClientresource.get() ;
                 String respString = result.getText();
                 if(Utils.isJSONValid(respString)){
@@ -47,6 +48,26 @@ public class WaitingRoom  extends BackGround
                          timer.stop();
                          Greenfoot.setWorld(new OrangeGameWorld());
                      }
+                }
+                if(chatWindow != null && chatWindow.isDisplayed()) {
+                    Representation chatResult = chatRestClient.get();
+                    if(result != null) {
+                        JSONObject obj = new JSONObject("{\"message\":" + chatResult.getText() + "}");
+                        String r = obj.getString("message");
+                        String[] messages = r.split("\n");
+                        if (messages.length > 6 ) {
+                            r = "";
+                            int strIndex = messages.length - 5;
+                            for(int i = 0; i < 5; i++) {
+                                r += messages[strIndex] + "\n";
+                                strIndex++;
+                                chatWindow.getMessageObject().setText(r);
+                            }
+                        }
+                        else  {
+                                chatWindow.getMessageObject().setText(r);
+                            }                
+                        }
                 }
                }catch(Exception ex){System.out.println(ex);}
             }    

@@ -27,7 +27,7 @@ public class ChatWindow extends Actor
     
     public ChatWindow() {
         msg = new ChatMessage();
-        msg.setText("This is the chat...");
+        msg.setText("");
     }
     
     public void act() 
@@ -40,21 +40,6 @@ public class ChatWindow extends Actor
             JSONObject object = new JSONObject();
             object.put("message", message);
             Representation result = helloClientresource.put(object, MediaType.APPLICATION_JSON);
-
-            try {
-                if(result != null) {
-                JSONObject obj = new JSONObject("{\"message\":" +result.getText() + "}");
-                String respString = obj.getString("message");
-                if (respString != null) {
-                        msg.setText(respString);
-                    }                
-                }
-                
-
-                
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
         }
     }
     

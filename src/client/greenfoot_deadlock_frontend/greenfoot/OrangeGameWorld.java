@@ -44,6 +44,7 @@ public class OrangeGameWorld extends BackGround
         try{
                     ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL +"/gumball" ); 
                     Representation result = helloClientresource.get() ;
+                                    ClientResource chatRestClient = new ClientResource( BackGround.SERVICE_URL + "/gumball/chat" ); 
                     String resp = result.getText();
                     if(!Utils.isJSONValid(resp)){
                         restartGame();
@@ -58,8 +59,28 @@ public class OrangeGameWorld extends BackGround
                         }
                         redraw(respObj);
                     }
-                    
-               }catch(Exception ex){System.out.println(ex);}
+                    if(chatWindow != null && chatWindow.isDisplayed()) {
+                    Representation chatResult = chatRestClient.get();
+                    if(result != null) {
+                        JSONObject obj = new JSONObject("{\"message\":" + chatResult.getText() + "}");
+                        String r = obj.getString("message");
+                        String[] messages = r.split("\n");
+                        if (messages.length > 6 ) {
+                            r = "";
+                            int strIndex = messages.length - 5;
+                            for(int i = 0; i < 5; i++) {
+                                r += messages[strIndex] + "\n";
+                                strIndex++;
+                                chatWindow.getMessageObject().setText(r);
+                            }
+                        }
+                        else  {
+                                chatWindow.getMessageObject().setText(r);
+                            }                
+                        }
+                }
+               }
+               catch(Exception ex){System.out.println(ex);}
     }
     
     

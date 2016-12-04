@@ -27,16 +27,7 @@ public class Starter extends BackGround
     }
     
     public void act() {
-        if (Greenfoot.isKeyDown("h")) {
-            addObject(chatWindow.getMessageObject(), 900, 100);
-            addObject(chatWindow,900, 170);
-            chatWindow.setIsDisplayed(true);
-        }
-        if (Greenfoot.isKeyDown("r")) {
-            removeObject(chatWindow);
-            removeObject(chatWindow.getChatMessage());
-            chatWindow.setIsDisplayed(false);
-        }
+      
     }
 }
 

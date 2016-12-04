@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.awt.Color;
 
 /**
  * Write a description of class ChatMessage here.
@@ -9,7 +10,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class ChatMessage extends Actor
 {
 
-    GreenfootImage gi;
+    GreenfootImage gi, baseImg, textImg;
+    int scroll;
     
     public ChatMessage() {
         gi = new GreenfootImage( 100, 50);
