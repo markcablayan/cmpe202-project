@@ -12,7 +12,9 @@
 ### Week 8 Submission: https://docs.google.com/document/d/1YjLx-_UIQQ9PIjg2zPDIayGuH5YB0Kbj6_Isqq7rmQc/edit?usp=sharing
 ### CFD Google Sheet: https://docs.google.com/spreadsheets/d/1le7NBUkGp8k-OSip2jHShXa3KLM1Hzv0Wq1a_P_sF2Y/edit?usp=sharing
 ### Sprint Task Board: https://docs.google.com/spreadsheets/d/1VVBeRQwGoDRLTYZk3d87HT2yClM8nOzoHlqbmpSweD4/edit?usp=sharing
-
+### Project - Final Report: https://docs.google.com/document/d/1LClf2QEJyXK14zQXyilppYvgqfFgGy98RBQpeEmkjQI/edit
+### Project - Presentation Slides: https://docs.google.com/presentation/d/1QDmlabzISaS4QpZqz183m9hpobx6CM8GBxAc4CDORWY/edit#slide=id.g19ee067d0e_1_0
+### FinalFolderSubmission: https://drive.google.com/drive/u/0/folders/0B28fwl7ASxqiUUpBaUdQNFpFM3M
 Folder Structure Conventions:
 
 - build: compiled files
@@ -22,31 +24,6 @@ Folder Structure Conventions:
 - tools: all tools, utilities, 3rd party libraries saved here
 - reporys: where we save our weekly submission reports.
 - design: where we save our design models for this project including mockup UI design
-
---------------------
-Template for this page (need to be filled in later)
-
-Pre-requisities
-+ What things you need to install the software and how to install them
-
-Installing
-+ A step by step series of examples that tell you have to get a development env running
-
-Running the tests
-+ Explain how to run the automated tests for this system
-
-- Break down into end to end tests
-	+ Explain what these tests test and why
-
-- And coding style tests
-	+ Explain what these tests test and why
-
-
-Deployment
-+ Add additional notes about how to deploy this on a live system
-
-# Current Class Diagram: (this will be modified)
-![class diagram latest](https://cloud.githubusercontent.com/assets/12701069/19839078/39244b28-9e99-11e6-98c3-c7d3c2b31df3.png)
 
 # Current Sequence Diagra: (this will be modified)
 ![class diagram latest](https://cloud.githubusercontent.com/assets/10459317/19840646/fc8ef216-9eb7-11e6-966f-2c2beeec3c27.png)
