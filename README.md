@@ -25,10 +25,6 @@ Folder Structure Conventions:
 - reporys: where we save our weekly submission reports.
 - design: where we save our design models for this project including mockup UI design
 
-
-# Current Class Diagram: (this will be modified)
-![class diagram latest](https://cloud.githubusercontent.com/assets/12701069/19839078/39244b28-9e99-11e6-98c3-c7d3c2b31df3.png)
-
 # Current Sequence Diagra: (this will be modified)
 ![class diagram latest](https://cloud.githubusercontent.com/assets/10459317/19840646/fc8ef216-9eb7-11e6-966f-2c2beeec3c27.png)
 
