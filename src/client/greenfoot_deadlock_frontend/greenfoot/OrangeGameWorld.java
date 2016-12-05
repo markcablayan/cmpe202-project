@@ -33,7 +33,7 @@ public class OrangeGameWorld extends BackGround
       
       timer.start();
       counterClock = new TimerInfo(300,true);
-      backgroundMusic.playLoop();
+      //backgroundMusic.playLoop();
       addObject(counterClock,150,100);
     }
     
@@ -44,7 +44,7 @@ public class OrangeGameWorld extends BackGround
         try{
                     ClientResource helloClientresource = new ClientResource( BackGround.SERVICE_URL +"/gumball" ); 
                     Representation result = helloClientresource.get() ;
-                                    ClientResource chatRestClient = new ClientResource( BackGround.SERVICE_URL + "/gumball/chat" ); 
+                    ClientResource chatRestClient = new ClientResource( BackGround.SERVICE_URL + "/gumball/chat" ); 
                     String resp = result.getText();
                     if(!Utils.isJSONValid(resp)){
                         restartGame();
@@ -88,6 +88,8 @@ public class OrangeGameWorld extends BackGround
     {
        removeObjects(getObjects(Player.class));
        removeObjects(getObjects(Gumball.class));
+       removeObject(chatWindow);
+       removeObject(chatWindow.getMessageObject());
        JSONArray list = json.getJSONArray("players");
         for(int i = 0; i <list.length();i++)
         {
@@ -98,7 +100,9 @@ public class OrangeGameWorld extends BackGround
             addObject(player, orientation.getPositionXForPlayerAt(i), 
                                         orientation.getPositionYForPlayerAt(i));
         }
-       
+        addObject(chatWindow.getMessageObject(), 900, 100);
+        addObject(chatWindow,900, 170);
+        chatWindow.setIsDisplayed(true);
     }
 
     private GumballType choose(String type)
