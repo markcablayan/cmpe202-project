@@ -57,28 +57,28 @@ public class OrangeGameWorld extends BackGround
                             String config = respObj.getString("orientation");
                             changeConfigUI(config);
                         }
+                        if(chatWindow != null && chatWindow.isDisplayed()) {
+                            Representation chatResult = chatRestClient.get();
+                            if(result != null) {
+                                JSONObject obj = new JSONObject("{\"message\":" + chatResult.getText() + "}");
+                                String r = obj.getString("message");
+                                String[] messages = r.split("\n");
+                                if (messages.length > 6 ) {
+                                    r = "";
+                                    int strIndex = messages.length - 5;
+                                    for(int i = 0; i < 5; i++) {
+                                        r += messages[strIndex] + "\n";
+                                        strIndex++;
+                                        chatWindow.getMessageObject().setText(r);
+                                    }
+                                }
+                                else  {
+                                        chatWindow.getMessageObject().setText(r);
+                                    }                
+                                }
+                        }
                         redraw(respObj);
                     }
-                    if(chatWindow != null && chatWindow.isDisplayed()) {
-                    Representation chatResult = chatRestClient.get();
-                    if(result != null) {
-                        JSONObject obj = new JSONObject("{\"message\":" + chatResult.getText() + "}");
-                        String r = obj.getString("message");
-                        String[] messages = r.split("\n");
-                        if (messages.length > 6 ) {
-                            r = "";
-                            int strIndex = messages.length - 5;
-                            for(int i = 0; i < 5; i++) {
-                                r += messages[strIndex] + "\n";
-                                strIndex++;
-                                chatWindow.getMessageObject().setText(r);
-                            }
-                        }
-                        else  {
-                                chatWindow.getMessageObject().setText(r);
-                            }                
-                        }
-                }
                }
                catch(Exception ex){System.out.println(ex);}
     }
@@ -88,8 +88,6 @@ public class OrangeGameWorld extends BackGround
     {
        removeObjects(getObjects(Player.class));
        removeObjects(getObjects(Gumball.class));
-       removeObject(chatWindow);
-       removeObject(chatWindow.getMessageObject());
        JSONArray list = json.getJSONArray("players");
         for(int i = 0; i <list.length();i++)
         {
@@ -100,9 +98,6 @@ public class OrangeGameWorld extends BackGround
             addObject(player, orientation.getPositionXForPlayerAt(i), 
                                         orientation.getPositionYForPlayerAt(i));
         }
-        addObject(chatWindow.getMessageObject(), 900, 100);
-        addObject(chatWindow,900, 170);
-        chatWindow.setIsDisplayed(true);
     }
 
     private GumballType choose(String type)
